@@ -10,7 +10,7 @@ public class MatrixApp {
 //    private static final Logger logger = LoggerFactory.getLogger(MatrixApp.class);
 
     public void start() {
-        final String[] menuItems = {"Add matrices", "Multiply matrix to a constant", "Multiply matrices"};
+        final String[] menuItems = {"Add matrices", "Multiply matrix to a constant", "Multiply matrices", "Transpose matrix"};
         final Scanner scanner = new Scanner(System.in);
         boolean loopContinue = true;
 
@@ -29,6 +29,9 @@ public class MatrixApp {
                 case 3:
                     multiply();
                     break;
+                case 4:
+                    transpose();
+                    break;
                 case 0:
                     loopContinue = false;
                     break;
@@ -37,6 +40,61 @@ public class MatrixApp {
             }
         }
 
+    }
+
+    private void transpose() {
+        String[] menuItems = {"Main diagonal", "Side diagonal", "Vertical line", "Horizontal line"};
+        display(menuItems);
+        final Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+
+        System.out.print("Enter matrix size: > ");
+        final int rows = scanner.nextInt();
+        final int columns = scanner.nextInt();
+        System.out.println("Enter matrix:");
+        double[][] matrix = MatrixOperations.readMatrix(rows, columns);
+
+        switch (choice) {
+            case 1:
+                mainDiagonal(matrix);
+                break;
+            case 2:
+                sideDiagonal(matrix);
+                break;
+            case 3:
+                verticalLine(matrix);
+                break;
+            case 4:
+                horizontalLine(matrix);
+                break;
+            default:
+//                    logger.debug("Wrong choice was entered: {} ", choice);
+
+        }
+    }
+
+    private void horizontalLine(double[][] matrix) {
+        double[][] result = MatrixOperations.transposeHorizontalLine(matrix);
+        System.out.println("The result is:");
+        print(result);
+    }
+
+    private void verticalLine(double[][] matrix) {
+        double[][] result = MatrixOperations.transposeVerticalLine(matrix);
+        System.out.println("The result is:");
+        print(result);
+    }
+
+    private void sideDiagonal(double[][] matrix) {
+        double[][] result = MatrixOperations.transposeSideDiagonal(matrix);
+        System.out.println("The result is:");
+        print(result);
+    }
+
+    private void mainDiagonal(double[][] matrix) {
+        double[][] result = MatrixOperations.transposeMainDiagonal(matrix);
+        System.out.println("The result is:");
+        print(result);
     }
 
     private void multiply() {
@@ -60,7 +118,7 @@ public class MatrixApp {
 
     private void multiplyWithConstant() {
         final Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter size of matrix: > ");
+        System.out.print("Enter matrix size: > ");
         final int rows = scanner.nextInt();
         final int columns = scanner.nextInt();
         System.out.println("Enter matrix:");
@@ -107,8 +165,8 @@ public class MatrixApp {
         for (int row = 0; row < matrix.length; row++) {
             for (int column = 0; column < matrix[0].length; column++) {
                 double value = matrix[row][column];
-                if ((long)value == value) {
-                    System.out.print((long)value + " ");
+                if ((long) value == value) {
+                    System.out.print((long) value + " ");
                 } else {
                     System.out.print(value + " ");
                 }

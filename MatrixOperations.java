@@ -63,4 +63,51 @@ public class MatrixOperations {
         return n1 == m2;
     }
 
+    public static double[][] transposeMainDiagonal(double[][] matrix) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        double[][] resultMatrix = new double[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                resultMatrix[i][j] = matrix[j][i];
+            }
+        }
+        return resultMatrix;
+    }
+
+    public static double[][] transposeSideDiagonal(double[][] matrix) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        double[][] resultMatrix = new double[rows][columns];
+        for (int i = rows - 1, k = 0; i >= 0; i--, k++) {
+            for (int j = columns - 1, l = 0; j >= 0; j--, l++) {
+                resultMatrix[k][l] = matrix[j][i];
+            }
+        }
+        return resultMatrix;
+    }
+
+    public static double[][] transposeVerticalLine(double[][] matrix) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        double[][] resultMatrix = new double[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = columns - 1, k = 0; j >= 0; j--, k++) {
+                resultMatrix[i][k] =matrix[i][j];
+            }
+        }
+        return resultMatrix;
+    }
+
+    public static double[][] transposeHorizontalLine(double[][] matrix) {
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        double[][] resultMatrix = new double[rows][columns];
+        for (int i = rows - 1, k = 0; i >= 0; i--, k++) {
+            for (int j = 0; j < columns; j++) {
+                resultMatrix[k][j] =matrix[i][j];
+            }
+        }
+        return resultMatrix;
+    }
 }

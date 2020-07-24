@@ -10,7 +10,7 @@ public class MatrixApp {
 //    private static final Logger logger = LoggerFactory.getLogger(MatrixApp.class);
 
     public void start() {
-        final String[] menuItems = {"Add matrices", "Multiply matrix to a constant", "Multiply matrices", "Transpose matrix"};
+        final String[] menuItems = {"Add matrices", "Multiply matrix to a constant", "Multiply matrices", "Transpose matrix", "Calculate a determinant"};
         final Scanner scanner = new Scanner(System.in);
         boolean loopContinue = true;
 
@@ -32,6 +32,9 @@ public class MatrixApp {
                 case 4:
                     transpose();
                     break;
+                case 5:
+                    determinant();
+                    break;
                 case 0:
                     loopContinue = false;
                     break;
@@ -40,6 +43,23 @@ public class MatrixApp {
             }
         }
 
+    }
+
+    private void determinant() {
+        final Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter matrix size: > ");
+        final int rows = scanner.nextInt();
+        final int columns = scanner.nextInt();
+        System.out.println("Enter matrix:");
+        double[][] matrix = MatrixOperations.readMatrix(rows, columns);
+        double result = MatrixOperations.determinantOf(matrix);
+        System.out.println("The result is:");
+        if ((long) result == result) {
+            System.out.println((long) result);
+        } else {
+            System.out.println(result);
+        }
+        System.out.println();
     }
 
     private void transpose() {

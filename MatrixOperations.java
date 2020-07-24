@@ -1,5 +1,6 @@
 package processor;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MatrixOperations {
@@ -93,7 +94,7 @@ public class MatrixOperations {
         double[][] resultMatrix = new double[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = columns - 1, k = 0; j >= 0; j--, k++) {
-                resultMatrix[i][k] =matrix[i][j];
+                resultMatrix[i][k] = matrix[i][j];
             }
         }
         return resultMatrix;
@@ -105,9 +106,55 @@ public class MatrixOperations {
         double[][] resultMatrix = new double[rows][columns];
         for (int i = rows - 1, k = 0; i >= 0; i--, k++) {
             for (int j = 0; j < columns; j++) {
-                resultMatrix[k][j] =matrix[i][j];
+                resultMatrix[k][j] = matrix[i][j];
             }
         }
         return resultMatrix;
     }
+
+    public static double determinantOf(double[][] matrix) {
+        double determinant = 0;
+        int sign = 1;
+        int length = matrix.length;
+        if (length == 2) {
+            return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
+        } else {
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < length; j++) {
+                    double[][] cofactor = getCofactor(matrix, i, j);
+                    determinant += sign * matrix[i][j] * determinantOf(cofactor);
+                    sign = sign * -1;
+                }
+            }
+        }
+        return determinant;
+    }
+
+    private static double[][] getCofactor(double[][] matrix, int row, int column) {
+        int length = matrix.length;
+        int resultMatrixLength = length - 1;
+        double[] array = new double[resultMatrixLength * resultMatrixLength];
+        int index = 0;
+        double[][] resultMatrix = new double[resultMatrixLength][resultMatrixLength];
+
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                if (i == row || j == column) {
+                    continue;
+                }
+                array[index] = matrix[i][j];
+                index++;
+            }
+        }
+
+        index = 0;
+        for (int i = 0; i < resultMatrixLength; i++) {
+            for (int j = 0; j < resultMatrixLength; j++) {
+                resultMatrix[i][j] = array[index];
+                index++;
+            }
+        }
+        return resultMatrix;
+    }
+
 }
